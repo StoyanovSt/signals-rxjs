@@ -1,5 +1,9 @@
 <div class="films-wrapper">
-  @for(film of films(); track film['title']){
-  <div>{{ film["title"] }}</div>
+  @if(pageTitle(); as title){
+  <h1>{{ title }}</h1>
+  } @for(film of films(); track film['title']){
+  <div class="title" (click)="onSelectFilm(film['title'])">
+    {{ film["title"] }}
+  </div>
   }
 </div>

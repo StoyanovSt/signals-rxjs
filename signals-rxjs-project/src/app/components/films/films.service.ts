@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { Film } from './film.interface';
@@ -23,4 +23,10 @@ export class FilmsService {
 
   //readonly signal
   films = toSignal<Film[], Film[]>(this.films$, { initialValue: [] as Film[] });
+  selectedFilm = signal<Film | undefined>(undefined);
+
+  onSelectFilm(filmTitle: string): void {
+    const foundFilm = this.films().find((f: Film) => f['title'] === filmTitle);
+    this.selectedFilm.set(foundFilm);
+  }
 }
