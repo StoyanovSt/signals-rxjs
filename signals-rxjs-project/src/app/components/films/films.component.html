@@ -1,5 +1,7 @@
 <div class="films-wrapper">
-  @if(pageTitle(); as title){
+  @if(error(); as errorMessage){
+  <div class="error">{{ errorMessage }}</div>
+  } @if(pageTitle(); as title){
   <h1>{{ title }}</h1>
   } @for(film of films(); track film['title']){
   <div class="title" (click)="onSelectFilm(film['title'])">

@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable, signal, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { Film } from './film.interface';
 
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 Injectable();
 export class FilmsService {
@@ -18,12 +19,18 @@ export class FilmsService {
         title: film['title'],
         director: film['director'],
       }))
-    )
+    ),
+    catchError((err: HttpErrorResponse) => {
+      console.error(err.message);
+      this.error.set(err.message);
+      return of([])
+    })
   );
 
   //readonly signal
   films = toSignal<Film[], Film[]>(this.films$, { initialValue: [] as Film[] });
   selectedFilm = signal<Film | undefined>(undefined);
+  error = signal<string | null>(null);
 
   onSelectFilm(filmTitle: string): void {
     const foundFilm = this.films().find((f: Film) => f['title'] === filmTitle);

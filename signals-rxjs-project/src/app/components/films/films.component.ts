@@ -19,6 +19,7 @@ export class FilmsComponent {
       ? `Director of \"${this.selectedFilm()?.['title']}\" is ${this.selectedFilm()?.['director']}`
       : '';
   });
+  error = this.filmsService.error;
 
   logSelectedFilm = effect(() => {
     if (this.selectedFilm() !== undefined) {
