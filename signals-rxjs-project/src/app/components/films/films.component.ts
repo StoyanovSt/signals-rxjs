@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { FilmsService } from './films.service';
 import { Film } from './film.interface';
+import { ZoomDirective } from '../../shared/zoom.directive';
 
 @Component({
   standalone: true,
   templateUrl: './films.component.html',
   styleUrl: './film.component.scss',
   providers: [FilmsService],
-  imports: [CommonModule],
+  imports: [CommonModule, ZoomDirective],
 })
 export class FilmsComponent {
   private filmsService = inject(FilmsService);
