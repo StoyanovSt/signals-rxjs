@@ -2,6 +2,7 @@ import { Component, computed, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FilmsService } from './films.service';
+import { Film } from './film.interface';
 
 @Component({
   standalone: true,
@@ -27,7 +28,13 @@ export class FilmsComponent {
     }
   });
 
+  filmsLogger = effect(() => console.log(this.films()));
+
   onSelectFilm(filmTitle: string): void {
     this.filmsService.onSelectFilm(filmTitle);
+  }
+
+  onRemoveFilm(film: Film): void {
+    this.filmsService.removeFilm(film);
   }
 }

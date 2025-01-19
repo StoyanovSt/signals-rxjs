@@ -4,8 +4,8 @@
   } @if(pageTitle(); as title){
   <h1>{{ title }}</h1>
   } @for(film of films(); track film['title']){
-  <div class="title" (click)="onSelectFilm(film['title'])">
-    {{ film["title"] }}
+  <div class="title-container" (click)="onSelectFilm(film['title'])">
+    {{ film["title"] }} <span class="remove-film-btn" (click)="onRemoveFilm(film)">X</span>
   </div>
   }
 </div>
